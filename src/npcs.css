@@ -1,0 +1,9 @@
+body {
+    background: lightgreen;
+    /*it will add additional stuff for this to work ...*/
+    transition: all 1s;
+}
+
+.npc form {
+    background: #ffffff;
+}

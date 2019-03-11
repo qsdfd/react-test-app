@@ -1,28 +1,52 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Npcs from './Npcs'
+import AddNpc from './AddNpc';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+        npcs: [
+            {type: 'Mage', skill: 'Magic', weapon: 'Staff', lvl: 105, id: 1},
+            {type: 'Warrior', skill: 'Attack', weapon: 'Sword', lvl: 100, id: 2},
+            {type: 'Berserker', skill: 'Strength', weapon: 'Maul', lvl: 72, id: 3},
+        ]
+    }
+
+
+    addNpc = (npc) => {
+        npc.id = Math.random();
+        // this.npcs.push(npc) // bad practise, don't alter state like this ...
+        let npcs = [...this.state.npcs, npc];
+        this.setState({
+            npcs: npcs
+        });
+    }
+
+    deleteNpc = (id) => {
+        let npcs = this.state.npcs.filter(npc => npc.id !== id);
+        this.setState({
+            npcs: npcs
+        });
+    }
+
+    componentDidMount() {
+        console.log('Component mounted')
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        console.log('component updated')
+        console.log(prevProps, prevState)
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <h1>Very nice app</h1>
+                <p>Nice</p>
+                <Npcs deleteNpc={this.deleteNpc} npcs={this.state.npcs}/>
+                <AddNpc addNpc={this.addNpc}/>
+            </div>
+        );
+    }
 }
 
 export default App;
